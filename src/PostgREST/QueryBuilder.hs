@@ -116,6 +116,7 @@ requestToQuery schema (Node (Select colSelects tbls conditions ord, (mainTbl, _)
     --getQueryParts is not total but requestToQuery is called only after addJoinConditions which ensures the only
     --posible relations are Child Parent Many
     getQueryParts (Node (_,(_,Nothing)) _) _ = undefined
+
 requestToQuery schema (Node (Insert _ flds vals, (mainTbl, _)) _) =
   query
   where
@@ -132,6 +133,7 @@ requestToQuery schema (Node (Insert _ flds vals, (mainTbl, _)) _) =
         ),
       "RETURNING " <> fromQi qi <> ".*"
       ]
+
 requestToQuery schema (Node (Update _ setWith conditions, (mainTbl, _)) _) =
   query
   where
@@ -143,6 +145,7 @@ requestToQuery schema (Node (Update _ setWith conditions, (mainTbl, _)) _) =
       "RETURNING " <> fromQi qi <> ".*"
       ]
     formatSet ((c, jp), v) = pgFmtIdent c <> pgFmtJsonPath jp <> " = " <> insertableValue v
+
 requestToQuery schema (Node (Delete _ conditions, (mainTbl, _)) _) =
   query
   where

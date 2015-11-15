@@ -169,7 +169,7 @@ countNoneF = "null"
 asJsonF :: T.Text
 asJsonF = "array_to_json(array_agg(row_to_json(t)))::character varying"
 
-asJsonSingleF :: T.Text --TODO! unsafe when the query actually returns multiple rows, used only on inserting and returning single element
+asJsonSingleF :: T.Text
 asJsonSingleF = "string_agg(row_to_json(t)::text, ',')::character varying "
 
 asCsvF :: T.Text
